@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TweetController;
 use App\Models\Chirp;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/chirps/{chirp}/edit', [ChirpController::class, 'edit'])->name('chirps.edit');
     Route::put('/chirps/{chirp}/update', [ChirpController::class, 'update'])->name('chirp.update');
     Route::delete('/chirps/{chirp}/destroy', [ChirpController::class, 'destroy'])->name('chirps.destroy');
+
+    /* X TWEETS */
+    Route::get('/tweets', [TweetController::class, 'index'])->name('tweet.index');
+    Route::post('/tweets/store', [TweetController::class, 'store'])->name('tweet.store');
+    Route::get('/tweets/{tweet}/edit', [TweetController::class, 'edit'])->name('tweet.edit');
+    Route::put('/tweets/{tweet}/update', [TweetController::class, 'update'])->name('tweet.update');
+    Route::delete('/tweets/{tweet}/delete', [TweetController::class, 'destroy'])->name('tweet.delete');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
