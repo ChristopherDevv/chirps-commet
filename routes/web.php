@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TweetController;
@@ -22,13 +23,12 @@ Route::get('/', function () {
 });
 
 
-
-
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-    
+
+    /* CHIRPS */
     Route::get('/chirps', [ChirpController::class, 'index'])->name('chirps.index');
     Route::post('/chirp/store', [ChirpController::class, 'store'])->name('chirp.store');
     Route::get('/chirps/{chirp}/edit', [ChirpController::class, 'edit'])->name('chirps.edit');
@@ -42,6 +42,13 @@ Route::middleware('auth')->group(function () {
     Route::put('/tweets/{tweet}/update', [TweetController::class, 'update'])->name('tweet.update');
     Route::delete('/tweets/{tweet}/delete', [TweetController::class, 'destroy'])->name('tweet.delete');
 
+    /* BOOKS */
+    Route::get('/books', [BookController::class, 'index'])->name('book.index');
+    Route::post('books/store', [BookController::class, 'store'])->name('book.store');
+    Route::post('/books/{book}/addtofavorite', [BookController::class, 'addToFavorite'])->name('book.favorite');
+    Route::delete('/books/{book}/delete', [BookController::class, 'deleteToFavorite'])->name('book.deletefavorite');
+
+    /* USER - PROFILE */
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
